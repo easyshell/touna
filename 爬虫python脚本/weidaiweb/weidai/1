@@ -1,0 +1,8 @@
+import json
+#-*-coding:utf-8-*-
+
+f = file("zhibiao.json")
+s = json.load(f)
+print(s.keys())
+for k in s.keys():
+	print(str(s[k].encode('ut-8'))+":")

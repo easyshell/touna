@@ -1,0 +1,38 @@
+2016-08-12 17:35:20 [scrapy] INFO: Scrapy 1.1.0 started (bot: rongjinsuo)
+2016-08-12 17:35:20 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'rongjinsuo.spiders', 'REDIRECT_MAX_TIMES': 30, 'ROBOTSTXT_OBEY': True, 'SPIDER_MODULES': ['rongjinsuo.spiders'], 'AUTOTHROTTLE_START_DELAY': 20, 'BOT_NAME': 'rongjinsuo', 'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.70 Safari/537.36', 'DOWNLOAD_DELAY': 2}
+2016-08-12 17:35:20 [scrapy] INFO: Enabled extensions:
+['scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+2016-08-12 17:35:20 [scrapy] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2016-08-12 17:35:20 [scrapy] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2016-08-12 17:35:20 [scrapy] INFO: Enabled item pipelines:
+['rongjinsuo.pipelines.MySQLStoreRongJinSuoPipeline']
+2016-08-12 17:35:20 [scrapy] INFO: Spider opened
+2016-08-12 17:35:20 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2016-08-12 17:35:20 [scrapy] DEBUG: Telnet console listening on 127.0.0.1:6023
+2016-08-12 17:35:20 [scrapy] INFO: Closing spider (finished)
+2016-08-12 17:35:20 [scrapy] INFO: Dumping Scrapy stats:
+{'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2016, 8, 12, 9, 35, 20, 613386),
+ 'log_count/DEBUG': 1,
+ 'log_count/INFO': 7,
+ 'start_time': datetime.datetime(2016, 8, 12, 9, 35, 20, 606723)}
+2016-08-12 17:35:20 [scrapy] INFO: Spider closed (finished)

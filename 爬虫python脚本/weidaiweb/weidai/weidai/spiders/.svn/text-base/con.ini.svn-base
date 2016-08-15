@@ -1,0 +1,6 @@
+;con.ini
+
+[range]
+first_page = 1
+last_page = 500
+

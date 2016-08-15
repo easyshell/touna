@@ -1,0 +1,57 @@
+#-*-coding:utf-8-*-
+
+hostname=localhost
+#PORT="3306"
+username=bi
+password=bi123
+db_name=weidai_db
+table_zhibiao=zhibiao_info
+table_homepage=homepage_info
+
+CREATE_DB_SQL="CREATE DATABASE IF NOT EXISTS ${db_name} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql -h${hostname}  -u${username} -p${password} -e "${create_db_sql}" 
+CONNECT_MYSQL="mysql -h${hostname}  -u${username} -p${password} $db_name"
+
+CREATE_TABLE_ZHIBIAO_SQL="CREATE TABLE  IF NOT EXISTS ${table_zhibiao} (
+  `linkmd5id` char(32) NOT NULL COMMENT 'url md5编码id',
+  `aouunt_of_subject` text COMMENT '项目总额',
+  `rate_of_reurn` text COMMENT '年化收益',
+  `deadline` text  COMMENT '项目期限',
+  `user_sex` text  COMMENT '借款用户性别',
+  `marriage` text  COMMENT '借款用户婚姻',
+  `repayment_periods` text  COMMENT '还款方式',
+  `loan_number` text  COMMENT '借款编号',
+  `product_type` text  COMMENT '产品类型',
+  `vehicle_brand` text  COMMENT '车辆品牌',
+  `license_plate_number` text  COMMENT '车牌号',
+  `revenue_passenger_kilometers` text  COMMENT '公里数',
+  `purchasing_price` text  COMMENT '购买价格',
+  `collateral_value` text  COMMENT '抵押价格',
+  `approval_money` text  COMMENT '核批金额',
+  `information` text  COMMENT '审核资料',
+  `today_invest` text  COMMENT '今日投资额',
+  `today_invest_number` text  COMMENT '今日投资笔数',
+  `today_invest_users` text  COMMENT '今日投资用户数',
+  `is_hot_invest` text  COMMENT '热售标',
+  `new_invest` text  COMMENT '新手标',
+  `purchasing_price` text  COMMENT '定时标',
+  `collateral_value` text  COMMENT '定向标',
+  `approval_money` text  COMMENT '转让标',
+  `information` text  COMMENT '信用标',
+  `today_invest` text  COMMENT '优选计划',
+  `today_invest_number` text  COMMENT '数据盒',
+  `url` text  COMMENT '链接地址',
+  `last_updated` datetime DEFAULT NULL  COMMENT '最后更新时间',
+  PRIMARY KEY (`linkmd5id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;"
+#
+#
+#CREATE TABLE IF NOT EXISTS ${table_homepage} (
+#  `url` text  COMMENT '链接地址',
+#  `informatio` text  COMMENT '累计成交额度',
+#  `today_invest` text  COMMENT '会员人数',
+#  `today_invest_number` text  COMMENT '用户收益',
+#  `last_updated` datetime DEFAULT NULL  COMMENT '最后更新时间',
+#  PRIMARY KEY (`url`)
+#) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+#"

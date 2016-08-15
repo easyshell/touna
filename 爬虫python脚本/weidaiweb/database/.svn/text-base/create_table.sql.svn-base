@@ -1,0 +1,44 @@
+#-*-coding:utf-8-*-
+
+CREATE DATABASE IF NOT EXISTS weidai_db DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE weidai_db;
+
+CREATE TABLE  IF NOT EXISTS zhibiao_info (
+  linkmd5id char(200) NOT NULL COMMENT 'url md5',
+  amount_of_subject text COMMENT '¿¿¿¿',
+  rate_of_return text COMMENT '¿¿¿¿',
+  deadline text  COMMENT '¿¿¿¿',
+  user_sex text  COMMENT '¿¿¿¿¿¿',
+  marriage text  COMMENT '¿¿¿¿¿¿',
+  repayment_periods text  COMMENT '¿¿¿¿',
+  repayment_ways text  COMMENT '¿¿¿¿',
+  loan_number text  COMMENT '¿¿¿¿',
+  product_type text  COMMENT '¿¿¿¿',
+  vehicle_brand text  COMMENT '¿¿¿¿',
+  license_plate_number text  COMMENT '¿¿¿',
+  revenue_passenger_kilometers text  COMMENT '¿¿¿',
+  purchasing_price text  COMMENT '¿¿¿¿',
+  collateral_value text  COMMENT '¿¿¿¿',
+  approval_money text  COMMENT '¿¿¿¿',
+  information text  COMMENT '¿¿¿¿',
+  today_invest text  COMMENT '¿¿¿¿¿',
+  today_invest_number text  COMMENT '¿¿¿¿¿¿',
+  today_invest_users text  COMMENT '¿¿¿¿¿¿¿',
+  is_hot_invest text  COMMENT '¿¿¿',
+  new_invest text  COMMENT '¿¿¿',
+  url text  COMMENT '¿¿¿¿',
+  last_updated datetime DEFAULT NULL  COMMENT '×îºó¸üÐÂÊ±¼ä',
+  PRIMARY KEY (linkmd5id)
+) ENGINE=MyISAM DEFAULT CHARSET='utf8';
+
+
+CREATE TABLE IF NOT EXISTS homepage_info (
+  url char(200)  COMMENT '¿¿¿¿',
+  total_volume text  COMMENT '¿¿¿¿¿',
+  member text COMMENT '¿¿¿¿',
+  revenue_user text COMMENT '¿¿¿¿¿¿',
+  last_updated datetime DEFAULT NULL  COMMENT '¿¿¿¿¿¿',
+  PRIMARY KEY (url)
+) ENGINE=MyISAM DEFAULT CHARSET='utf8';
+
+

@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+#-*-coding:utf-8-*-
+import json
+from shixin.items import *
+
+class ShixinPipeline(object):
+	def __init__(self):
+		self.file = open('items.j1', 'wb')
+		
+	def process_item(self, item, spider):
+		print("pipeline:\n")
+		if isinstance(item, ShixinItem):
+			print(type(item['body']))
+			shixinjson = json.loads(item['body'])
+			
+			print(type(shixinjson))
+			shixin_executs = shixinjson['data'][0]['result']
+			print(type(shixin_executs))
+			print(len(shixin_executs))
+			for execut_info in shixin_executs:
+				for key in execut_info.keys():
+					if not type(execut_info[key]) == int:
+						print(str(key.encode('utf-8')) + ":" + str(execut_info[key].encode('utf-8')) + "\n")
+
+			
+		return item
+
+	

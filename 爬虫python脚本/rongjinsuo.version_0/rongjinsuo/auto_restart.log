@@ -1,0 +1,13 @@
+old_crawl_pid:
+kill: usage: kill [-s sold_crawl_pid:
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pold_crawl_pid:
+kill: usage: kill [-s sold_crawl_pid:
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pold_crawl_pid:
+kill: usage: kill [-s sold_crawl_pid:
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pold_crawl_pid:
+kill: usage: kill [-s sold_crawl_pid:
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pauto_restart.sh: line 19: 27215 段错auto_restart.sh: line 19: 27262 段错误               (core dumped) sh auto_restart.sh
+ignum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+old_crawl_pid:
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+auto_restart.sh: line 19: 27220 段错误               (core dumped) sh auto_restart.sh

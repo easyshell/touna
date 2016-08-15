@@ -1,0 +1,109 @@
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+import json
+from weidai.items import *
+from hashlib import md5
+import MySQLdb
+import MySQLdb.cursors
+from datetime import datetime
+from twisted.enterprise import adbapi
+from scrapy import signals
+
+class WeidaiPipeline(object):
+	def __init__(self):
+		self.homepage_file = open("hompage.json", "wb")
+		self.zhibiao_file = open("zhibiao.json", "wb")
+
+	def process_item(self, item, spider):
+		if isinstance(item, WeidaiHomeItem):
+			line = json.dumps(dict(item)) + "\n"
+			self.homepage_file.write(line)
+		if isinstance(item, BiaoDiItem):
+			line = json.dumps(dict(item)) + "\n"
+			self.zhibiao_file.write(line)
+		return item
+
+
+class MySQLStoreWeidaiPipeline(object):
+	def __init__(self, dbpool):
+		self.dbpool = dbpool
+	
+	@classmethod	
+	def from_settings(cls, settings):
+		dbargs = dict(
+			host = settings['MYSQL_HOST'],
+			db = settings['MYSQL_DBNAME'],
+			user = settings['MYSQL_USER'],
+			passwd = settings['MYSQL_PASSWD'],
+			charset = 'utf8',
+			cursorclass = MySQLdb.cursors.DictCursor,
+			use_unicode = True
+		)
+		dbpool = adbapi.ConnectionPool('MySQLdb', **dbargs)		
+		return cls(dbpool)
+	
+	def process_item(self, item, spider):
+		d = self.dbpool.runInteraction(self._do_upinsert, item, spider)
+		d.addErrback(self._handle_error, item, spider)
+		d.addBoth(lambda _: item)
+		return d
+	
+	def _do_upinsert(self, conn, item, spider):
+		linkmd5id = self._get_linkmd5id(item)
+		print(type(conn))
+		print(conn.__class__.__name__)
+		print(linkmd5id)
+		now = datetime.utcnow().replace(microsecond=0).isoformat(' ')
+		if isinstance(item, WeidaiHomeItem):
+			conn.execute(""" selected 1 from homepage_info where linkmd5id = %s """, (linkmd5id, ))
+			ret = conn.fetchone()
+			if ret:
+				conn.execute(""" update homepage_info set 
+						url = %s, total_volume = %s, member = %s, revenue_user = %s, last_updated = %s""",
+						(item['url'], item['total_volume'], item['member'], item['revenue_user'], now))
+			else:
+				conn.execute(""" insert into homepage_info (url, total_volume, member, revenue_user, last_updated) 
+						values(%s, %s, %s, %s, %s)""", 
+						(item['url'], item['total_volume'], item['member'], item['revenue_user'], now))
+#		if isinstance(item, BiaoDiItem):
+#			conn.execute(""" selected 1 from zhibiao_info where url = %s """, (url, ))
+#			ret = conn.fetchone()
+#			if ret:
+#				conn.execute(""" update zhibiao_inffo set linkmd5id=%s, amount_of_subject=%s, reate_of_return=%s, deadline=%s, 
+#								user_sex=%s, marriage=%s, repayment_periods=%s, repayment_ways=%s. loan_number=%s,
+#								product_type=%s, vehicle_brand=%s, license_plate_number=%s, revenue_passenger_kilometers=%s, 
+#								purchasing_price=%s, collateral_value=%s, approval_money=%s, information=%s, today_invest=%s, 
+#								today_invest_number=%s, today_invest_users=%s, is_hot_invest=%s, new_invest=%s, url=%s, last_updated=%s)""",
+#										item['marriage'], item['repayment_periods'], item['repayment_ways'], item['loan_number'],
+#										item['product_type'], item['vehicle_brand'], item['license_plate_number'], 
+#										item['revenue_passenger_kilometers'], item['purchasing_price'], item['collateral_value'], 
+#										item['approval_money'], item['information'], item['today_invest'], item['today_invest_number'], 
+#										item['today_invest_users'], item['is_hot_invest'], item['new_invest'], item['url'], now)
+#								
+#			
+#			else:
+#				conn.execute(""" inset into zhibiao_info (linkmd5id, amount_of_subject, reate_of_return, deadline, 
+#								user_sex, marriage, repayment_periods, repayment_ways. loan_number,
+#								product_type, vehicle_brand, license_plate_number, revenue_passenger_kilometers, 
+#								purchasing_price, collateral_value, approval_money, information, today_invest, 
+#								today_invest_number, today_invest_users, is_hot_invest, new_invest, url, last_updated) 
+#								values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+#								 (linkmd5id, item['amount_of_subject'], item['reate_of_return'], item['deadline'], item['user_sex'], 
+#										item['marriage'], item['repayment_periods'], item['repayment_ways'], item['loan_number'],
+#										item['product_type'], item['vehicle_brand'], item['license_plate_number'], 
+#										item['revenue_passenger_kilometers'], item['purchasing_price'], item['collateral_value'], 
+#										item['approval_money'], item['information'], item['today_invest'], item['today_invest_number'], 
+#										item['today_invest_users'], item['is_hot_invest'], item['new_invest'], item['url'], now))
+#
+#
+	def _get_linkmd5id(self, item):
+		return md5(item['url']).hexdigest()
+	
+	def _handle_error(self, failure, item, spider):
+		log.err(failure)
+
