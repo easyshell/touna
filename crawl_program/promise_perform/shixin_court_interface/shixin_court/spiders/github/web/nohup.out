@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "shixin_court_interface_server.py", line 16, in <module>
+    from scrapy.conf import settings
+  File "/usr/local/lib/python2.7/site-packages/scrapy/conf.py", line 8, in <module>
+    settings = get_project_settings()
+  File "/usr/local/lib/python2.7/site-packages/scrapy/utils/project.py", line 57, in get_project_settings
+    settings = Settings()
+  File "/usr/local/lib/python2.7/site-packages/scrapy/settings/__init__.py", line 466, in __init__
+    for name, val in six.iteritems(self):
+  File "/usr/local/lib/python2.7/_abcoll.py", line 406, in iteritems
+    yield (key, self[key])
+  File "/usr/local/lib/python2.7/site-packages/scrapy/settings/__init__.py", line 96, in __getitem__
+    return self.attributes[opt_name].value
+KeyboardInterrupt

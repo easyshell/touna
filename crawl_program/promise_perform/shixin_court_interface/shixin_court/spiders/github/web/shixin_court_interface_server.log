@@ -1,0 +1,13 @@
+nohup: 忽略输入
+shixin_court_interface_server.py:17: ScrapyDeprecationWarning: Module `scrapy.conf` is deprecated, use `crawler.settings` attribute instead
+  from scrapy.conf import settings
+Bottle v0.12.9 server starting up (using WSGIRefServer())...
+Listening on http://0.0.0.0:8080/
+Hit Ctrl-C to quit.
+
+127.0.0.1 - - [16/Nov/2016 10:45:41] "POST /execute_info HTTP/1.1" 200 57796
+10.1.17.155 - - [16/Nov/2016 10:47:57] code 400, message Bad request syntax ('f')
+10.1.17.155 - - [16/Nov/2016 10:47:57] "f" 400 -
+10.1.17.155 - - [16/Nov/2016 10:48:26] "POST /execute_info HTTP/1.1" 200 995
+127.0.0.1 - - [16/Nov/2016 10:55:02] "POST /execute_info HTTP/1.1" 200 42
+10.1.5.219 - - [16/Nov/2016 17:19:16] "GET /favicon.ico HTTP/1.1" 404 743
